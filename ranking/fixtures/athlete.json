@@ -1,0 +1,380 @@
+[
+{
+    "model": "app.athlete",
+    "pk": 2,
+    "fields": {
+        "name": "Ar\u00edanna Rakel Almarsd\u00f3ttir",
+        "ssn": "260708-2950",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 3,
+    "fields": {
+        "name": "Arn\u00f3r Breki Cilia",
+        "ssn": "290208-2540",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 4,
+    "fields": {
+        "name": "Einar P\u00e1ll Dav\u00ed\u00f0sson",
+        "ssn": "071207-3230",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 5,
+    "fields": {
+        "name": "Erling H\u00f3lm Ottason",
+        "ssn": "250108-4430",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 6,
+    "fields": {
+        "name": "J\u00fal\u00edan R\u00edkar\u00f0ur Elmarsson",
+        "ssn": "170908-3250",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 7,
+    "fields": {
+        "name": "\u00d3lafur P\u00e9tur \u00de\u00f3rj\u00f3nsson",
+        "ssn": "110308-3020",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 8,
+    "fields": {
+        "name": "P\u00e9tur Valur Thors",
+        "ssn": "300108-2960",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 9,
+    "fields": {
+        "name": "Tristana S\u00f3l Kristj\u00e1nsd\u00f3ttir",
+        "ssn": "130506-2750",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 10,
+    "fields": {
+        "name": "Tupac T\u00fdr Nunez Kvaran",
+        "ssn": "120609-3350",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 11,
+    "fields": {
+        "name": "\u00dalfar Heimisson",
+        "ssn": "030207-2110",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 12,
+    "fields": {
+        "name": "Almar Tristan Almarsson",
+        "ssn": "260604-2440",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 13,
+    "fields": {
+        "name": "Isad\u00f3ra Bjarkard\u00f3ttir Barney",
+        "ssn": "031002-3380",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 14,
+    "fields": {
+        "name": "Aron Kristinn Haraldsson",
+        "ssn": "150706-2620",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 15,
+    "fields": {
+        "name": "\u00cdris \u00de\u00f6ll Hr\u00f3bjartsd\u00f3ttir",
+        "ssn": "060905-3980",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 16,
+    "fields": {
+        "name": "Snorri Esek\u00edel J\u00f3hannesson",
+        "ssn": "050904-2290",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 17,
+    "fields": {
+        "name": "Sunna Lind Ingvarsd\u00f3ttir",
+        "ssn": "210107-2580",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 18,
+    "fields": {
+        "name": "Sverrir \u00de\u00f3r Vilhj\u00e1lmsson",
+        "ssn": "111005-3030",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 19,
+    "fields": {
+        "name": "Vilhj\u00e1lmur \u00de\u00f3r Olsen",
+        "ssn": "070105-2760",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 20,
+    "fields": {
+        "name": "\u00c6var Nunez Kvaran",
+        "ssn": "171204-2160",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 21,
+    "fields": {
+        "name": "Ana Cristina Geppert",
+        "ssn": "140990-3459",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 22,
+    "fields": {
+        "name": "Anna D\u00f3ra Sverrisd\u00f3ttir",
+        "ssn": "060878-5289",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 23,
+    "fields": {
+        "name": "Dagbj\u00f6rt R\u00fanarsd\u00f3ttir",
+        "ssn": "260979-5829",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 24,
+    "fields": {
+        "name": "Dav\u00ed\u00f0 Hermann Brandt",
+        "ssn": "170472-6169",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 25,
+    "fields": {
+        "name": "Hugo Sebastian Celine Froment",
+        "ssn": "030799-3139",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 26,
+    "fields": {
+        "name": "J\u00f6kull Orri Gylfason",
+        "ssn": "281002-4490",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 27,
+    "fields": {
+        "name": "Karl Sigtryggsson",
+        "ssn": "030884-2729",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 28,
+    "fields": {
+        "name": "Krist\u00edn Vilhj\u00e1lmsd\u00f3ttir",
+        "ssn": "300567-5849",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 29,
+    "fields": {
+        "name": "Antje Muller",
+        "ssn": "310372-2349",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 30,
+    "fields": {
+        "name": "\u00c1lfd\u00eds Freyja Hansd\u00f3ttir",
+        "ssn": "250103-2980",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 31,
+    "fields": {
+        "name": "Ey\u00fe\u00f3r Atli Reynisson",
+        "ssn": "191101-2350",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 32,
+    "fields": {
+        "name": "Ger\u00f0ur Eva Halld\u00f3rsd\u00f3ttir",
+        "ssn": "020701-3070",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 33,
+    "fields": {
+        "name": "Gulleik L\u00f6vskar",
+        "ssn": "290664-2419",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 34,
+    "fields": {
+        "name": "Halld\u00f3r Freyr Grettisson",
+        "ssn": "300402-3640",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 35,
+    "fields": {
+        "name": "H\u00e1kon Jan Nor\u00f0fj\u00f6r\u00f0",
+        "ssn": "050902-4390",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 36,
+    "fields": {
+        "name": "Hei\u00f0r\u00fan \u00deorvaldsd\u00f3ttir",
+        "ssn": "090889-2069",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 37,
+    "fields": {
+        "name": "\u00cdrunn Ketilsd\u00f3ttir",
+        "ssn": "020869-3569",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 38,
+    "fields": {
+        "name": "J\u00f3hann Dan\u00edel Jimma",
+        "ssn": "040686-2749",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 39,
+    "fields": {
+        "name": "J\u00f3n Gu\u00f0mundarson Selmuson",
+        "ssn": "190881-5989",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 40,
+    "fields": {
+        "name": "Krist\u00edn Mar\u00eda Vilhj\u00e1lmsd\u00f3ttir",
+        "ssn": "100799-3249",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 41,
+    "fields": {
+        "name": "Meisam Rafiei",
+        "ssn": "210386-3869",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 42,
+    "fields": {
+        "name": "Viktor Sn\u00e6r Flosason",
+        "ssn": "230502-2260",
+        "avatar": null
+    }
+},
+{
+    "model": "app.athlete",
+    "pk": 43,
+    "fields": {
+        "name": "\u00de\u00f3rarinn Grettir Einarsson",
+        "ssn": "190575-4629",
+        "avatar": null
+    }
+}
+]
