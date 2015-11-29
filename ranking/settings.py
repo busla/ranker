@@ -26,7 +26,7 @@ SECRET_KEY = 'ic*n_uoel)e(0zr)-69v@0^tu$_(3@=g9rhk5sip(x-kn*ujk2'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+ADMINS = (('Nonni', 'nonni@nonni.cc'),)
 
 # Application definition
 
@@ -107,6 +107,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'mail.1984.is'
+EMAIL_HOST_USER = 'levy@tkdtrainer.com'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 25
+SERVER_EMAIL = 'levy@tkdtrainer.com'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
