@@ -79,7 +79,7 @@ if any('DOKKU_POSTGRES_RANKING' in s for s in os.environ.keys()):
     PREPEND_WWW = False
     DATABASES = {'default': dj_database_url.parse(os.environ['DATABASE_URL'])}
     DEBUG = False
-    ALLOWED_HOSTS = ['ranking.projects.nonni.cc']
+    ALLOWED_HOSTS = ['ranking.projects.nonni.cc', 'ranking-dev.projects.nonni.cc']
 
 else:
     DATABASES = {
