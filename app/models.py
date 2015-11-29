@@ -1,5 +1,5 @@
 from django.db import models
-
+from autoslug import AutoSlugField
 
 class Image(models.Model):
     photo = models.ImageField(upload_to='images')
@@ -15,19 +15,7 @@ class Athlete(models.Model):
     ssn = models.CharField(max_length=255, blank=True, null=True)
     #slug = AutoSlugField(populate_from='title')
     avatar = models.ForeignKey(Image, blank=True, null=True)
-    """
-    def _points(self):        
-        total = 0
-        for result in self.results_set.prefetch_related('tournament__score_system'):               
-            for score in result.tournament.score_system.all():
-                if result.category == score.category:
-                    for point in score.score.all():                        
-                        if result.score == point.place:
-                            total += point.points
-
-        return total
-    points = property(_points)
-    """
+  
     def __str__(self):
         return self.name
 
@@ -45,6 +33,7 @@ class ScoreItem(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='title', always_update=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -73,8 +62,6 @@ class Results(models.Model):
     athlete = models.ForeignKey(Athlete)
     category = models.ForeignKey(Category)
     score    = models.IntegerField(default=0)
-
-    #total = ResultsManager()
 
     def __str__(self):
         return self.athlete.name + ' - ' + str(self.score)+'. sæti' + ' - ' + self.category.title + ' - ' + self.tournament.title

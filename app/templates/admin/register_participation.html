@@ -1,0 +1,22 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+
+<p>Select tournament to register participation:</p>
+
+<form action="" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="action" value="register_participation" />
+  <input type="hidden" name="do_action" value="yes">  
+  
+  {{ form.tournament }}
+
+  <p>The tournament participation will be applied to:</p>
+
+  <ul>{{ athletes|unordered_list }}</ul>
+
+  <input type="submit" name="apply" value="Register participation" />
+  {{ form.tournament.errors }}
+</form>
+
+{% endblock %}

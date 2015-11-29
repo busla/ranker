@@ -34,6 +34,14 @@
         padding-top: 30px !important;
       }
 
+      .jumbotron h1 {
+        font-size: 25px;
+      }
+
+      .jumbotron p {
+        font-size: 18px;
+      }      
+
     </style>
   </head>
   <body>
@@ -170,7 +178,7 @@
     };
 
     $(document).on('click','#name > a',function(e){
-      
+
       e.preventDefault();
       getAthlete($(e.target).attr("href"));     
       return false;
