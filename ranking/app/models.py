@@ -9,19 +9,6 @@ class Image(models.Model):
 
     def __str__(self):
         return self.filename()
-
-class ResultsManager(models.Manager):
-    def points(self):        
-        total = 0
-        results = Results.objects.all()
-        for result in results:               
-            for score in result.tournament.score_system.all():
-                if result.category == score.category:
-                    for point in score.score.all():                        
-                        if result.score == point.place:
-                            total += point.points
-
-        return total
     
 class Athlete(models.Model):
     name = models.CharField(max_length=255)    
