@@ -20,9 +20,16 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug')    
     readonly_fields = ('slug',)
 
+class ScoreItemAdmin(admin.ModelAdmin):
+    list_display = ('title_rendered', 'place', 'points', 'slug')    
+    readonly_fields = ('slug',)
+
+class ScoreSystemAdmin(admin.ModelAdmin):
+    list_display = ('title', 'scale', 'category')    
+
+
 class ResultsAdmin(admin.ModelAdmin):
     list_display = ('athlete', 'tournament', 'category', 'score')    
-    list_editable = ['tournament']
     search_fields = ['athlete__name']
 
     
@@ -45,7 +52,7 @@ class AthleteAdmin(admin.ModelAdmin):
                 category=score_system.category,
                 athlete=athlete)
             result.save()
-            
+
             
 
         modeladmin.message_user(request, ("Successfully registered %d athletes") % (queryset.count(),), messages.SUCCESS)
@@ -56,5 +63,5 @@ admin.site.register(Tournament, TournamentAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Results, ResultsAdmin)
 admin.site.register(Image)
-admin.site.register(ScoreSystem)
-admin.site.register(ScoreItem)
+admin.site.register(ScoreSystem, ScoreSystemAdmin)
+admin.site.register(ScoreItem, ScoreItemAdmin)

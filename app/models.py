@@ -1,5 +1,6 @@
 from django.db import models
 from autoslug import AutoSlugField
+from taggit.managers import TaggableManager
 
 class Image(models.Model):
     photo = models.ImageField(upload_to='images')
@@ -24,13 +25,6 @@ class Athlete(models.Model):
         verbose_name_plural = "Athletes"
         ordering = ['name']
 
-class ScoreItem(models.Model):
-    place = models.IntegerField(blank=True, null=True)
-    points = models.IntegerField(blank=True, null=True)
-
-    def __str__(self):
-        return str(self.place)+'. sæti ('+str(self.points)+' stig)'
-
 class Category(models.Model):
     title = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='title', always_update=True, blank=True)
@@ -38,10 +32,27 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+class ScoreItem(models.Model):
+    title = models.CharField(max_length=255, blank=True, null=True)
+    slug = AutoSlugField(populate_from='title', always_update=True, blank=True)    
+    place = models.IntegerField(blank=True, null=True)
+    points = models.IntegerField(blank=True, null=True)
+    tags = TaggableManager(blank=True)
+    #category = models.ForeignKey(Category, blank=True, null=True) 
+
+    def title_rendered(self):
+        return self.title + ' ('+str(self.points)+')' if not self.place else str(self.place)+'. place ('+str(self.points)+' points)' 
+
+    def __str__(self):
+        return self.title_rendered()
+
+
 class ScoreSystem(models.Model):
     title = models.CharField(max_length=255)
     score = models.ManyToManyField(ScoreItem, blank=True)
+    scale = models.FloatField(default=1)
     category = models.ForeignKey(Category, blank=True, null=True) 
+    #tags = TaggableManager(blank=True)
 
     def __str__(self):
         return self.title
@@ -64,7 +75,7 @@ class Results(models.Model):
     score    = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.athlete.name + ' - ' + str(self.score)+'. sæti' + ' - ' + self.category.title + ' - ' + self.tournament.title
+        return self.athlete.name + ' - ' + str(self.score)+'. place' + ' - ' + self.category.title + ' - ' + self.tournament.title
 
     class Meta:
         verbose_name = "Result"
