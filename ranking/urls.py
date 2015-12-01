@@ -20,7 +20,9 @@ from app import views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),    
     url(r'^ranking/category/(\d+)/$', views.category),
-    url(r'^ranking/athlete/(\d+)/$', views.athlete),
+    url(r'^ranking/athlete/(\d+)/$', views.athlete),    
     url(r'^ranking/$', views.score),
+    #url(r'^debug/$', views.debug),
+    url(r'^score-system/$', views.score_system),
     url(r'^', views.home),
 ]

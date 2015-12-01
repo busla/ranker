@@ -64,9 +64,20 @@ class Tournament(models.Model):
     #score_system = models.ForeignKey(ScoreSystem, blank=True, null=True)
     score_system = models.ManyToManyField(ScoreSystem, blank=True)
 
+    def rank_system(self):
+        rank = [s.title + ' - '+str(s.scale) for s in self.score_system.all()]
+        if rank:
+            return ' (' + ", ".join(rank) +')'
+        else:
+            return ''
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name = "Event"
+        verbose_name_plural = "Events"
+        ordering = ['-date'] 
 
 class Results(models.Model):
     tournament = models.ForeignKey(Tournament)

@@ -12,6 +12,8 @@ class ResultsInline(admin.TabularInline):
     model = Results
 
 class TournamentAdmin(admin.ModelAdmin):
+    list_display = ('title', 'date', 'rank_system')
+
     inlines = [
         ResultsInline
     ]

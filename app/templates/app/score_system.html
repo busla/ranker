@@ -1,0 +1,38 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+{% block score-system %}
+  <div class="row marketing">
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-condensed">
+          <thead> 
+            <tr> 
+              <th>Heiti</th> 
+              <th>Stig</th>             
+              <th>Flokkur</th> 
+              <th>Sæti</th> 
+              <th>Skali</th>
+              <th>Stig</th> 
+              <th>Samtals</th> 
+            </tr> 
+          </thead>        
+          <tbody>        
+          {% for item in data %}
+            <tr>
+              <td>{{item.title}}</td>
+              <td>{{item.score}}</td>            
+              <td>{{item.category}}</td>
+              <td>{{item.place}}</td>
+              <td>{{item.scale}}</td>
+              <td>{{item.points}}</td>
+              <td>{{item.total}}</td>
+            <tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+{% endblock score-system %}  
+{% block ranking %}{% endblock ranking %}        

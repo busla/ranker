@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'taggit',
     'app',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,6 +70,13 @@ TEMPLATES = [
         },
     },
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'ranking',
+    }
+}
 
 WSGI_APPLICATION = 'ranking.wsgi.application'
 
