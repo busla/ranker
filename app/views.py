@@ -4,15 +4,30 @@ from django.shortcuts import render_to_response
 from .models import *
 from django.db.models import Max, Min, Sum, Count, Prefetch
 from django.views.decorators.cache import cache_page
+from django.conf import settings
+
+if settings.DEBUG:
+    caching = cache_page(0)
+
+else:
+    caching = cache_page(60 * 60 * 24)
 
 def home(request):    
     #athletes = Athlete.objects.all()
+    cat = []
+    categories = Category.objects.all()
 
-    return render_to_response('app/ranking.html', {'index':'index'})
+    for category in categories:
+        cat.append({'id': category.id, 'title': category.title})
+    
 
-@cache_page(60 * 60 * 24)
+    return render_to_response('app/ranking.html', {'index':'index', 'categories': cat})
+
+#@cache_page(60 * 60 * 24)
+@caching
 def score(request):
     data = []
+    cat = []
     profile = []
     athletes = Athlete.objects.all()
 
@@ -24,7 +39,6 @@ def score(request):
         .prefetch_related('tournament__score_system__category') \
         .prefetch_related('tournament__score_system__score')
     
-
     """
     This iteration is heavy and has to be cached.
     """
@@ -39,6 +53,7 @@ def score(request):
                                 total += point.points * score.scale
                         
         
+        #data.append({'name': athlete.name, 'id': athlete.id, 'points': total, 'categories': categories})
         data.append({'name': athlete.name, 'id': athlete.id, 'points': total})
 
 
@@ -47,7 +62,7 @@ def score(request):
     #return render_to_response('app/ranking.html', {data})
     return JsonResponse(data, safe=False)
 
-@cache_page(60 * 60 * 24)
+@caching
 def category(request, cat=None):
     data = []
     
@@ -77,6 +92,7 @@ def athlete(request, pk=None):
             if result.category == score.category:                
                 for point in score.score.all():                        
                     if result.score == point.place or 'other' in point.tags.names():                    
+                        print(point.points * score.scale)
                         record.append({   
                             'name': result.athlete.name,                             
                             'tournament': result.tournament.title,
@@ -91,7 +107,7 @@ def athlete(request, pk=None):
 
     return JsonResponse(data, safe=False)
 
-@cache_page(60 * 60 * 24)
+#@caching
 def score_system(request):
     data = []
     qs = ScoreSystem.objects.select_related('category').prefetch_related('score')

@@ -46,6 +46,11 @@ class ScoreItem(models.Model):
     def __str__(self):
         return self.title_rendered()
 
+    class Meta:
+        verbose_name = "Score Item"
+        verbose_name_plural = "Score Items"
+        ordering = ['place'] 
+        
 
 class ScoreSystem(models.Model):
     title = models.CharField(max_length=255)

@@ -5,8 +5,7 @@
             url: url,
             type: 'GET',
             success: function(data){ 
-              data.sort(orderPoints);
-
+              data.sort(orderPoints);                            
               $.each( data, function( key, value ) {
                 $('#ranking > tbody').append(          
                   '<tr>' + 
@@ -32,7 +31,7 @@
                 '<tr>' + 
                   '<td>' + value.date + '</td>' +  
                   '<td>' + value.tournament + '</td>' +
-                  '<td>' + value.category + '</td>' +
+                  '<td>' + value.category + '</td>' +                  
                   '<td>'+ value.place + '</td>' +
                   '<td>'+ value.points + '</td>' +
                 '</tr>');
@@ -63,12 +62,19 @@
       };
 
       $(document).on('click','#name > a',function(e){
-
         e.preventDefault();
         getAthlete($(e.target).attr("href"));     
         return false;
       });
 
+      $(".categories > li > a").click(function(e) {
+        e.preventDefault();
+        $('.categories > li').removeClass('active');
+        $(e.target).parent().addClass('active');        
+        getScore($(e.target).attr("href"));     
+        return false;
+      });
+      /*
       $("#total").click(function(event) {
         event.preventDefault();
         $('li').removeClass('active');
@@ -89,7 +95,7 @@
         $("#poomsae").parent().addClass('active');
         getScore($("#poomsae").attr('href'));
       });
-
+      */
 
         
         getScore('/ranking/');
