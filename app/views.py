@@ -100,7 +100,7 @@ def score_system(request):
         for score in item.score.all():
             data.append({   
                 'title': item.title,                             
-                'score': score.title_rendered,
+                'score': score.title,
                 'scale': item.scale,
                 'category': item.category,            
                 'place': score.place,
