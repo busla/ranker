@@ -22,7 +22,7 @@
         });        
       };
 
-      function renderData(data) {
+      function renderModal(data) {
         $('.modal-title').text(data[0].record[0].name);
         $.each( data, function(i, record) {              
           $.each( record, function(x, item) {
@@ -32,7 +32,7 @@
                   '<td>' + value.date + '</td>' +  
                   '<td>' + value.tournament + '</td>' +
                   '<td>' + value.category + '</td>' +                  
-                  '<td>'+ value.place + '</td>' +
+                  '<td>'+ (value.place != 0 ? value.place:'#') + '</td>' +
                   '<td>'+ value.points + '</td>' +
                 '</tr>');
               
@@ -49,7 +49,7 @@
             url: url,
             type: 'GET',
             success: function(data){               
-              renderData(data);
+              renderModal(data);
             },
             error: function(data) {
                 console.log(data); //or whatever
