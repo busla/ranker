@@ -48,11 +48,20 @@ def score(request):
         for result in results.filter(athlete=athlete):
             for score in result.tournament.score_system.filter(category=result.category):
                 if result.category == score.category:
-                    for point in score.score.all():                        
-                        if result.score == point.place or 'other' in point.tags.names():                    
-                                total += point.points * score.scale
-                        
-        
+                    points = {
+                        'pointsReward': 0,
+                        'pointsVictories': 0,
+                        'pointsTotal': 0,
+                    }                          
+                    for point in score.score.all():   
+                        if 'victories' in point.tags.names():                                              
+                            points['pointsVictories'] = result.victories * point.points * score.scale
+
+                        if result.score == point.place or 'other' in point.tags.names():
+                            points['pointsReward'] = point.points * score.scale
+                    
+                    total += points['pointsVictories'] + points['pointsReward']                        
+                    points = {}
         #data.append({'name': athlete.name, 'id': athlete.id, 'points': total, 'categories': categories})
         data.append({'name': athlete.name, 'id': athlete.id, 'points': total})
 
@@ -73,34 +82,60 @@ def category(request, cat=None):
         for result in athlete.results_set.filter(category=int(cat)).prefetch_related('tournament__score_system'):               
             for score in result.tournament.score_system.filter(category=result.category):
                 if result.category == score.category:
-                    for point in score.score.all():                        
-                        if result.score == point.place or 'other' in point.tags.names():                    
-                            total += point.points * score.scale
-        
+                    points = {
+                        'pointsReward': 0,
+                        'pointsVictories': 0,
+                        'pointsTotal': 0,
+                    }                          
+                    for point in score.score.all():   
+                        if 'victories' in point.tags.names():                                              
+                            points['pointsVictories'] = result.victories * point.points * score.scale
+
+                        if result.score == point.place or 'other' in point.tags.names():
+                            points['pointsReward'] = point.points * score.scale
+                    
+                    total += points['pointsVictories'] + points['pointsReward']
+                    points = {}
+
         data.append({'name': athlete.name, 'id': athlete.id, 'points': total})
 
 
     return JsonResponse(data, safe=False)
 
-def athlete(request, pk=None):
+def athlete(request, pk=None):   
     data = []
     record = []                                   
     athlete = Athlete.objects.get(pk=int(pk))
 
     for result in athlete.results_set.all().order_by('tournament__date', '-category'):
         for score in result.tournament.score_system.filter(category=result.category):
-            if result.category == score.category:                
-                for point in score.score.all():                        
-                    if result.score == point.place or 'other' in point.tags.names():                    
-                        print(point.points * score.scale)
-                        record.append({   
-                            'name': result.athlete.name,                             
-                            'tournament': result.tournament.title,
-                            'category': result.category.title,
-                            'date': result.tournament.date,
-                            'place': result.score,
-                            'points': point.points * score.scale,
-                            })                         
+            if result.category == score.category:   
+                points = {
+                    'pointsReward': 0,
+                    'pointsVictories': 0,
+                    'pointsTotal': 0,
+                }                          
+                for point in score.score.all():   
+                    if 'victories' in point.tags.names():                                              
+                        points['pointsVictories'] = result.victories * point.points * score.scale
+
+                    if result.score == point.place or 'other' in point.tags.names():
+                        points['pointsReward'] = point.points * score.scale
+
+                record.append({   
+                    'name': result.athlete.name,                             
+                    'tournament': result.tournament.title,
+                    'category': result.category.title,
+                    'date': result.tournament.date,
+                    'victories': result.victories,
+                    'reward': result.score,
+                    'victories': result.victories,
+                    'pointsVictories': points['pointsVictories'],
+                    'pointsReward': points['pointsReward'],                    
+                    'pointsTotal': points['pointsVictories'] + points['pointsReward'],
+                    })   
+
+                points = {}
 
     data.append({'record': record})                    
 
@@ -110,7 +145,7 @@ def athlete(request, pk=None):
 #@caching
 def score_system(request):
     data = []
-    qs = ScoreSystem.objects.select_related('category').prefetch_related('score').order_by('title', 'scale')
+    qs = ScoreSystem.objects.select_related('category').prefetch_related('score').order_by('title')
 
     for item in qs:
         for score in item.score.all().order_by('place'):

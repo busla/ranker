@@ -32,10 +32,12 @@
                   '<td>' + value.date + '</td>' +  
                   '<td>' + value.tournament + '</td>' +
                   '<td>' + value.category + '</td>' +                  
-                  '<td>'+ (value.place != 0 ? value.place:'#') + '</td>' +
-                  '<td>'+ value.points + '</td>' +
-                '</tr>');
-              
+                  '<td class="info">'+ (value.victories != 0 ? value.victories:'#') + '</td>' +
+                  '<td class="info">'+ (value.pointsVictories != 0 ? value.pointsVictories:'#') + '</td>' +
+                  '<td class="success">'+ (value.reward != 0 ? value.reward:'#') + '</td>' +
+                  '<td class="success">'+ value.pointsReward + '</td>' +
+                  '<td>'+ value.pointsTotal + '</td>' +
+                '</tr>');              
             });
           });
         });

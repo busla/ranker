@@ -23,7 +23,7 @@ class CategoryAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
 
 class ScoreItemAdmin(admin.ModelAdmin):
-    list_display = ('title_rendered', 'place', 'points', 'slug')    
+    list_display = ('title_rendered', 'place', 'points', 'slug', 'get_tags')    
     readonly_fields = ('slug',)
 
 class ScoreSystemAdmin(admin.ModelAdmin):
@@ -54,8 +54,6 @@ class AthleteAdmin(admin.ModelAdmin):
                 category=score_system.category,
                 athlete=athlete)
             result.save()
-
-            
 
         modeladmin.message_user(request, ("Successfully registered %d athletes") % (queryset.count(),), messages.SUCCESS)
     register_participation.short_description = "Register participation in tournament"

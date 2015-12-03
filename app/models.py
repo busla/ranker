@@ -40,6 +40,9 @@ class ScoreItem(models.Model):
     tags = TaggableManager(blank=True)
     #category = models.ForeignKey(Category, blank=True, null=True) 
 
+    def get_tags(self):
+        return ", ".join([tag.name for tag in self.tags.all()])
+        
     def title_rendered(self):
         return self.title + ' ('+str(self.points)+')' if not self.place else str(self.place)+'. place ('+str(self.points)+' points)' 
 
@@ -88,7 +91,9 @@ class Results(models.Model):
     tournament = models.ForeignKey(Tournament)
     athlete = models.ForeignKey(Athlete)
     category = models.ForeignKey(Category)
+    victories = models.IntegerField(default=0)
     score    = models.IntegerField(default=0)
+
 
     def __str__(self):
         return self.athlete.name + ' - ' + str(self.score)+'. place' + ' - ' + self.category.title + ' - ' + self.tournament.title

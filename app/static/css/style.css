@@ -1,29 +1,29 @@
 
-    body {
-      padding-top: 70px;
-      padding-bottom: 30px;
-      font-family: 'Open Sans';
-    }
-      #main .container {
-        margin-top: 20px;
-      };
-      #main .nav {
-        margin-top: 20px;
-        margin-bottom: 20px;
-      };
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+  font-family: 'Open Sans', sans-serif;
+}
+#main .container {
+  margin-top: 20px;
+};
+#main .nav {
+  margin-top: 20px;
+  margin-bottom: 20px;
+};
 
-      .table {
-        margin-top: 20px;
-      };
+.table {
+  margin-top: 20px;
+};
 
-      .progress {
-        padding-top: 30px !important;
-      }
+.progress {
+  padding-top: 30px !important;
+}
 
-      .jumbotron h1 {
-        font-size: 35px;
-      }
+.jumbotron h1 {
+  font-size: 35px;
+}
 
-      .jumbotron p {
-        font-size: 18px;
-      }          
+.jumbotron p {
+  font-size: 18px;
+}          
