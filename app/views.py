@@ -110,7 +110,7 @@ def athlete(request, pk=None):
 #@caching
 def score_system(request):
     data = []
-    qs = ScoreSystem.objects.select_related('category').prefetch_related('score').order_by('scale', 'category')
+    qs = ScoreSystem.objects.select_related('category').prefetch_related('score').order_by('title', 'scale')
 
     for item in qs:
         for score in item.score.all().order_by('place'):
