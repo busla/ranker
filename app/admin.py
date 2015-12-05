@@ -31,7 +31,7 @@ class ScoreSystemAdmin(admin.ModelAdmin):
 
 
 class ResultsAdmin(admin.ModelAdmin):
-    list_display = ('athlete', 'tournament', 'category', 'score')    
+    list_display = ('athlete', 'tournament', 'category', 'score', 'victories')    
     search_fields = ['athlete__name']
 
     

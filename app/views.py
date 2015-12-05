@@ -54,7 +54,7 @@ def score(request):
                         'pointsTotal': 0,
                     }                          
                     for point in score.score.all():   
-                        if 'victories' in point.tags.names():                                              
+                        if result.victories > 0:
                             points['pointsVictories'] = result.victories * point.points * score.scale
 
                         if result.score == point.place or 'other' in point.tags.names():
@@ -88,7 +88,7 @@ def category(request, cat=None):
                         'pointsTotal': 0,
                     }                          
                     for point in score.score.all():   
-                        if 'victories' in point.tags.names():                                              
+                        if result.victories > 0:
                             points['pointsVictories'] = result.victories * point.points * score.scale
 
                         if result.score == point.place or 'other' in point.tags.names():
@@ -115,10 +115,12 @@ def athlete(request, pk=None):
                     'pointsVictories': 0,
                     'pointsTotal': 0,
                 }                          
-                for point in score.score.all():   
-                    if 'victories' in point.tags.names():                                              
-                        points['pointsVictories'] = result.victories * point.points * score.scale
+                for point in score.score.all():
 
+                    if result.victories > 0:                                              
+                        print(result.victories * point.points * score.scale)
+                        points['pointsVictories'] = result.victories * point.points * score.scale
+                        #print(points['pointsVictories'])
                     if result.score == point.place or 'other' in point.tags.names():
                         points['pointsReward'] = point.points * score.scale
 
