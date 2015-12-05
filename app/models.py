@@ -101,4 +101,15 @@ class Results(models.Model):
     class Meta:
         verbose_name = "Result"
         verbose_name_plural = "Results"
-        ordering = ['athlete']        
+        ordering = ['athlete']
+
+class Attribute(models.Model):
+    results = models.ForeignKey('Results', blank=True, null=True)
+    tags = TaggableManager(blank=True)
+    value = models.FloatField(default=0)
+
+    def get_tags(self):
+        return ", ".join([tag.name for tag in self.tags.all()])
+
+    def __str__(self):
+        return self.get_tags()                
