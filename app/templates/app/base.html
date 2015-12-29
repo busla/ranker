@@ -6,14 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Styrkleikalisti Taekwondodeildar Ármanns</title>
+    <title>{{request.site.name}} Taekwondo - Styrkleikalisti</title>
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
     <!--[if lt IE 9]>
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.ie.min.css" />
     <![endif]-->
@@ -25,44 +27,27 @@
     <![endif]-->
   </head>
   <body>
-  <div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/busla/ranker">Fork me on GitHub</a>
-    </div>
-  </div>    
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">RANKER</a>
-      </div>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">          
-          <li><a href="/score-system/">Stigakerfi</a></li>
-          <li><a href="#">Um Ranker</a></li>            
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </nav>
-  <div id="main" class="container">    
-  <div class="jumbotron text-center">
-    <h1>Styrkleikalisti Taekwondodeildar Ármanns</h1>
-    <p class="lead">Hægt er að skoða stigakerfið <a href="/score-system/">hér</a>.</p>
-  </div>  
-  {% block main %}
+  {% block navbar %}
+    {% include 'app/navbar.html' %}
+  {% endblock navbar %}
 
+  {% block main %}
+  <div id="main" class="container">    
+    {% block jumbotron %}
+    <div class="jumbotron text-center">
+      <h1>{{request.site.name}} Taekwondo - Styrkleikalisti</h1>
+      <p class="lead">Styrkleikalistinn er birtur með fyrirvara um innsláttarvillur í úrslitum. Kíktu á <a href="/score-system/">stigakerfi deildarinnar</a> til að skoða útreikninga.</p>
+    </div>
+    {% endblock jumbotron %}
     {% block score-system %}
     {% endblock score-system %}    
-    
+    {% block add-results %}
+    {% endblock add-results %}    
     {% block ranking %}           
     {% endblock ranking %}    
-  {% endblock main %}
   </div> <!-- /container -->
+  {% endblock main %}
+  
   
   <footer class="footer text-center">
     <p>&copy; 2015 Ármann Taekwondo.</p>
@@ -73,6 +58,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>    
     {% if index %}
       <script src="{% static 'js/ranking.js' %}"></script>
     {% endif %}

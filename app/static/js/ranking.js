@@ -22,29 +22,54 @@
         });        
       };
 
+
       function renderModal(data) {
-        $('.modal-title').text(data[0].record[0].name);
-        $.each( data, function(i, record) {              
-          $.each( record, function(x, item) {
-            $.each(item, function(key, value) {
+        var extras = {}        
+        var renderedPoints = ''
+        var points_arr = []
+        var th = []    
+        var thArr = [] 
+        var record = []   
+        $(".label").tooltip({
+          placement: "top"
+        });
+        
+        
+        $('.modal-title').text(data[0].records[0].name);
+
+        
+        $.each( data, function(i, records) {
+                   
+          
+          $.each( records, function(i, record) {  
+              
+            $.each( record, function(i, items) {
+
+              renderedPoints = ''
+              var ordered = {};
+                            
+              $.each(items.points, function(i, points) {
+                renderedPoints += '<span class="label label-success" data-show="tip" title="'+points.title+'">'+points.value+'</span>'+'<span class="label label-info" data-show="tip" title="Stig">'+points.points+'</span>';                
+              })
+       
               $('#profile > tbody').append(          
                 '<tr>' + 
-                  '<td>' + value.date + '</td>' +  
-                  '<td>' + value.tournament + '</td>' +
-                  '<td>' + value.category + '</td>' +                  
-                  '<td class="info">'+ (value.victories != 0 ? value.victories:'#') + '</td>' +
-                  '<td class="info">'+ (value.pointsVictories != 0 ? value.pointsVictories:'#') + '</td>' +
-                  '<td class="success">'+ (value.reward != 0 ? value.reward:'#') + '</td>' +
-                  '<td class="success">'+ value.pointsReward + '</td>' +
-                  '<td>'+ value.pointsTotal + '</td>' +
-                '</tr>');              
+                  '<td>' + items.date + '</td>' +  
+                  '<td>' + items.event + '</td>' +
+                  '<td>' + items.category + '</td>' +
+                  '<td>'+renderedPoints+'</td>' +
+                  '<td>'+ items.total + '</td>' + 
+                '</tr>');
+                           
             });
-          });
-        });
 
+          });
+          
+        });
+        
         $('#myModal').modal();
       };
-
+      
       function getAthlete (url) { 
         $('#profile > tbody').empty();     
         $.ajax({
@@ -58,6 +83,7 @@
             }
         });        
       };
+      
 
       function orderPoints(a,b) {
         return parseInt(b.points, 10) - parseInt(a.points, 10);
@@ -76,29 +102,11 @@
         getScore($(e.target).attr("href"));     
         return false;
       });
-      /*
-      $("#total").click(function(event) {
-        event.preventDefault();
-        $('li').removeClass('active');
-        $("#total").parent().addClass('active');    
-        getScore($("#total").attr('href'));
-      });
+      
+        $("body").tooltip({
+          selector:'[data-show=tip]',
+          "data-placement": "top",
+        });
 
-      $("#sparring").click(function(event) {
-        event.preventDefault();
-        $('li').removeClass('active');
-        $("#sparring").parent().addClass('active');
-        getScore($("#sparring").attr('href'));
-      });
-
-      $("#poomsae").click(function(event) {
-        event.preventDefault();
-        $('li').removeClass('active');
-        $("#poomsae").parent().addClass('active');
-        getScore($("#poomsae").attr('href'));
-      });
-      */
-
-        
         getScore('/ranking/');
       

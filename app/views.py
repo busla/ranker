@@ -1,16 +1,24 @@
+from django.forms import inlineformset_factory, modelformset_factory, modelform_factory
+from django.contrib.auth.decorators import login_required
+from django.template import RequestContext, loader
 from django.http import JsonResponse
 from django.core import serializers
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
+from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
+from .forms import *
 from django.db.models import Max, Min, Sum, Count, Prefetch
 from django.views.decorators.cache import cache_page
 from django.conf import settings
+import collections
+
+from .custom.ranking_points import RankingPoints
 
 if settings.DEBUG:
     caching = cache_page(0)
 
 else:
-    caching = cache_page(60 * 60 * 24)
+    caching = cache_page(60 * 10)
 
 def home(request):    
     #athletes = Athlete.objects.all()
@@ -20,8 +28,54 @@ def home(request):
     for category in categories:
         cat.append({'id': category.id, 'title': category.title})
     
+    t = loader.get_template('app/ranking.html')
+    c = RequestContext(request, {'index':'index', 'categories': cat})
+    return HttpResponse(t.render(c))
 
-    return render_to_response('app/ranking.html', {'index':'index', 'categories': cat})
+@login_required(login_url='/admin/')
+def add_results(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+
+        # create a form instance and populate it with data from the request:
+        form = ResultsForm(request.POST)        
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            form = ResultsForm(request.POST)
+            form.save()
+            return HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        ResultsFormSet = modelformset_factory(Results, form=ResultsForm)
+        form = ResultsFormSet(queryset=Results.objects.none())
+        #form = modelformset_factory(Results, fields=("athlete", "tournament", "category"))
+        #form = modelform_factory(Results, fields=("athlete", "tournament", "category"))
+
+        #form = ResultsForm()
+
+    return render(request, 'app/forms/add_results.html', {'form': form})
+
+def calculate_points(result):
+    total = 0
+    points_list = []
+
+    category_points = result.category_points()
+    attribute_points = result.attribute_points()     
+
+    points_list = category_points + attribute_points
+
+
+    for item in points_list:
+        for key in item:
+            if 'points' in key:
+                total += item['points']
+
+
+    return total
 
 #@cache_page(60 * 60 * 24)
 @caching
@@ -29,7 +83,7 @@ def score(request):
     data = []
     cat = []
     profile = []
-    athletes = Athlete.objects.all()
+    athletes = Athlete.objects.filter(club__site=request.site)
 
     results = Results.objects \
         .select_related('athlete') \
@@ -42,26 +96,14 @@ def score(request):
     """
     This iteration is heavy and has to be cached.
     """
+
     for athlete in athletes:
         total = 0
         #for result in athlete.results_set.prefetch_related('tournament__score_system__score'):               
         for result in results.filter(athlete=athlete):
-            for score in result.tournament.score_system.filter(category=result.category):
-                if result.category == score.category:
-                    points = {
-                        'pointsReward': 0,
-                        'pointsVictories': 0,
-                        'pointsTotal': 0,
-                    }                          
-                    for point in score.score.all():   
-                        if result.victories > 0:
-                            points['pointsVictories'] = result.victories * point.points * score.scale
 
-                        if result.score == point.place or 'other' in point.tags.names():
-                            points['pointsReward'] = point.points * score.scale
+            total += calculate_points(result)
                     
-                    total += points['pointsVictories'] + points['pointsReward']                        
-                    points = {}
         #data.append({'name': athlete.name, 'id': athlete.id, 'points': total, 'categories': categories})
         data.append({'name': athlete.name, 'id': athlete.id, 'points': total})
 
@@ -75,72 +117,56 @@ def score(request):
 def category(request, cat=None):
     data = []
     
-    athletes = Athlete.objects.all()
+    athletes = Athlete.objects.filter(club__site=request.site)
 
     for athlete in athletes:
         total = 0
         for result in athlete.results_set.filter(category=int(cat)).prefetch_related('tournament__score_system'):               
-            for score in result.tournament.score_system.filter(category=result.category):
-                if result.category == score.category:
-                    points = {
-                        'pointsReward': 0,
-                        'pointsVictories': 0,
-                        'pointsTotal': 0,
-                    }                          
-                    for point in score.score.all():   
-                        if result.victories > 0:
-                            points['pointsVictories'] = result.victories * point.points * score.scale
-
-                        if result.score == point.place or 'other' in point.tags.names():
-                            points['pointsReward'] = point.points * score.scale
-                    
-                    total += points['pointsVictories'] + points['pointsReward']
-                    points = {}
+            total += calculate_points(result)            
 
         data.append({'name': athlete.name, 'id': athlete.id, 'points': total})
 
 
     return JsonResponse(data, safe=False)
+   
 
 def athlete(request, pk=None):   
     data = []
-    record = []                                   
+    record = []    
+
     athlete = Athlete.objects.get(pk=int(pk))
+    
+    for result in athlete.results_set.all().order_by('tournament__date', '-category'):      
+        total = 0
+        points =  {}
+        points_list = []        
 
-    for result in athlete.results_set.all().order_by('tournament__date', '-category'):
-        for score in result.tournament.score_system.filter(category=result.category):
-            if result.category == score.category:   
-                points = {
-                    'pointsReward': 0,
-                    'pointsVictories': 0,
-                    'pointsTotal': 0,
-                }                          
-                for point in score.score.all():
+        category_points = result.category_points()
+        attribute_points = result.attribute_points()     
 
-                    if result.victories > 0:                                              
-                        print(result.victories * point.points * score.scale)
-                        points['pointsVictories'] = result.victories * point.points * score.scale
-                        #print(points['pointsVictories'])
-                    if result.score == point.place or 'other' in point.tags.names():
-                        points['pointsReward'] = point.points * score.scale
+        points_list = category_points + attribute_points
+        
 
-                record.append({   
-                    'name': result.athlete.name,                             
-                    'tournament': result.tournament.title,
-                    'category': result.category.title,
-                    'date': result.tournament.date,
-                    'victories': result.victories,
-                    'reward': result.score,
-                    'victories': result.victories,
-                    'pointsVictories': points['pointsVictories'],
-                    'pointsReward': points['pointsReward'],                    
-                    'pointsTotal': points['pointsVictories'] + points['pointsReward'],
-                    })   
+        for item in points_list:
+            for key in item:
+                if 'points' in key:
+                    total += item['points']
+        
+        points.update({
+            'name': result.athlete.name,                             
+            'event': result.tournament.title,
+            'category': result.category.title,
+            'date': result.tournament.date,
+            'points': points_list,            
+            'total': total,            
+        })
 
-                points = {}
+        
+        record.append(points)
 
-    data.append({'record': record})                    
 
+    data.append({'records': record})                    
+    
 
     return JsonResponse(data, safe=False)
 
@@ -157,11 +183,12 @@ def score_system(request):
                 'scale': item.scale,
                 'category': item.category,            
                 'place': score.place,
-                'points': score.points,
-                'total': score.points * item.scale,
+                'points': score.value,
+                'total': score.value * item.scale,
                 })        
     
 
-
-    return render_to_response('app/score_system.html', {'data': data})
+    t = loader.get_template('app/score_system.html')
+    c = RequestContext(request, {'data': data})
+    return HttpResponse(t.render(c))
 

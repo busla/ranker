@@ -1,5 +1,12 @@
 {% extends 'app/base.html' %}
 {% load staticfiles %}
+
+{% block jumbotron %}
+<div class="jumbotron text-center">
+  <h1>{{request.site.name}} Taekwondo - Stigakerfi</h1>
+  <p class="lead">Stigakerfið er ákvarðað af þjálfarateymi deildarinnar sem áskilur sér rétt til að breyta því fyrirvaralaust.</p>
+</div>
+{% endblock jumbotron %}
 {% block score-system %}
   <div class="row marketing">
     <div class="col-xs-12">
@@ -9,9 +16,9 @@
             <tr> 
               <th>Heiti</th> 
               <th>Verðlaun</th>             
-              <th>Flokkur</th>              
-              <th>Stuðull</th>
+              <th>Flokkur</th>                            
               <th>Stig</th> 
+              <th>Stuðull</th>
               <th>Samtals</th> 
             </tr> 
           </thead>        
@@ -21,8 +28,8 @@
               <td>{{item.title}}</td>
               <td>{{item.score}}</td>            
               <td>{{item.category}}</td>              
-              <td>{{item.scale}}</td>
               <td>{{item.points}}</td>
+              <td>{{item.scale}}</td>
               <td>{{item.total}}</td>
             <tr>
           {% endfor %}

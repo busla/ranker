@@ -16,14 +16,23 @@ body {
   margin-top: 20px;
 };
 
-.progress {
-  padding-top: 30px !important;
+
+.jumbotron {
+
+  padding-top: 24px;
+  padding-bottom: 24px;
+
 }
 
 .jumbotron h1 {
-  font-size: 35px;
+  font-size: 25px !important;
 }
 
 .jumbotron p {
-  font-size: 18px;
-}          
+  font-size: 15px;
+}
+
+.label {
+  margin-right: 3px;
+  font-size: 100%;
+}

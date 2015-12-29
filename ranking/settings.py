@@ -26,6 +26,8 @@ SECRET_KEY = 'ic*n_uoel)e(0zr)-69v@0^tu$_(3@=g9rhk5sip(x-kn*ujk2'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ranker-keflavik.localhost', 'ranker-armann.localhost']
+#ALLOWED_HOSTS = ['ranker-armann.localhost']
 
 # Application definition
 
@@ -36,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'taggit',
     'app',
     'debug_toolbar',
@@ -50,6 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
 )
 
 ROOT_URLCONF = 'ranking.urls'
@@ -60,11 +64,11 @@ TEMPLATES = [
         'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
-            'context_processors': [
+            'context_processors': [                
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.contrib.messages.context_processors.messages',                
             ],
         },
     },
@@ -130,3 +134,5 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
+
+#SITE_ID = 1
