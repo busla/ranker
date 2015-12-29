@@ -2,11 +2,13 @@ Django==1.8.7
 Pillow==3.0.0
 dj-database-url==0.3.0
 dj-static==0.0.6
+django-autocomplete-light==2.2.10
 django-autoslug==1.9.3
 django-debug-toolbar==1.4
 django-taggit==0.17.5
 gunicorn==19.4.1
 psycopg2==2.6.1
+six==1.10.0
 sqlparse==0.1.18
 static3==0.6.1
 wheel==0.26.0
