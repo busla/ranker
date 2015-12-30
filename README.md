@@ -41,6 +41,10 @@ Participation: 1 point
 
 Best player: 1 point
 
+sparring-matches-won: 1 point
+
+poomsae-opponents-won: 1 point
+
 National team member: 7 points
 
 
@@ -99,6 +103,13 @@ To add results, you select an athlete, add result and category.
 
 
 ## Installation
+Install python3
+mkdir ~/my-ranking-list && cd my-ranking-list
+pyvenv-3.x venv
+Clone this repo
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
 
 
 ## Usage
