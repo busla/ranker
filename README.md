@@ -2,6 +2,8 @@
 
 RANKER is a ranking list web app for Taekwondo clubs. It displays ranking-lists for each category added and a link to the athlete profile. It´s a custom project for one club but most of the custom stuff has been abstracted away to make it as general as possible. The project is rough around the edges and I don´t plan on continuing the development. Unless someone hires me to do so :-)
 
+Demo: http://styrkleikalisti.armanntkd.com
+
 ## Categories
 The app displays ranking lists for each category that is added. A category can be whatever, sparring, poomsae, training-camp, et.c. You can add whatever you want.
 
