@@ -1,6 +1,6 @@
 # RANKER
 
-RANKER is a ranking list web app for Taekwondo clubs. The club administrator can configure categories and score-systems to calculate athlete points based on his results in any category.
+RANKER is a ranking list web app for Taekwondo clubs. It displays ranking-lists for each category added and a link to the athlete profile. It´s a custom project for one club but most of the custom stuff has been abstracted away to make it as general as possible. The project is rough around the edges and I don´t plan on continuing the development. Unless someone hires me to do so :-)
 
 ## Categories
 The app displays ranking lists for each category that is added. A category can be whatever, sparring, poomsae, training-camp, et.c. You can add whatever you want.
@@ -103,13 +103,14 @@ To add results, you select an athlete, add result and category.
 
 
 ## Installation
-Install python3
-mkdir ~/my-ranking-list && cd my-ranking-list
-pyvenv-3.x venv
-Clone this repo
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+1. Install python3
+2. mkdir ~/my-ranking-list && cd my-ranking-list
+3. pyvenv-3.x venv
+4. Clone this repo
+5. pip install -r requirements.txt
+6. python manage.py migrate
+7. python manage.py createsuperuser
+8. python manage.py runserver
 
 
 ## Usage
